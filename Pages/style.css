@@ -110,7 +110,8 @@
 }
 
 input[type=text],
-select {
+select,
+textarea {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -195,4 +196,10 @@ body {
     background-color: dodgerblue;
     color: white;
     transform: rotateY(180deg);
+}
+
+#APIimage {
+    border-radius: 100%;
+    opacity: 100%;
+    filter: invert();
 }
