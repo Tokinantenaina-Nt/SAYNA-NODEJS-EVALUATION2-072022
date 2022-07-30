@@ -114,19 +114,19 @@ app.post('/contact', function(req, res) {
         // ----
         messageStrMoins1 = messageStr.substring(0, messageStr.length - 2)
         messageStr = constMessageStr + messageStrMoins1 + ',' + avisDataStr + ']}' + ' ; ' + 'module.exports = messages'
-        console.log(messageStr);
+
         fs.writeFileSync('./bdd_formulaire/message.js', messageStr, function(erreur) {
             if (erreur) {
                 console.log(erreur)
             } else {
-                res.status(200).send(message);
+                res.status(200).sendFile(__dirname + `/pages/contact.html`);
             }
         })
     } else {
 
-        res.status(400).send(message);
+        res.status(400).sendFile(__dirname + `/pages/contact.html`);
     }
-    res.send(message)
+    res.sendFile(__dirname + `/pages/contact.html`);
 });
 
 
