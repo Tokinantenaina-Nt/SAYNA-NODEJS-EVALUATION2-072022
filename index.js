@@ -12,22 +12,36 @@ const fetchMessage = async() => {
     note.innerHTML = avisDisplayMessagesSplice.map((el) => (
             // el.avis + el.note
             `
-       <li> ${el.note} <span style="font-size: 10px ">⭐</span> </br> 
-      ${el.firstname}  : </br> <span style="font-style: normal; font-weight: bold;"> "${el.avis}" </span> </li> </br>
+                <li> 
+                        ${el.note} <span style="font-size: 10px ">⭐</span> 
+                            </br> 
+                        <span style="font-style: normal; "> ${el.firstname}  : </span> 
+                            </br>
+                            </br> 
+                        <span style=""> "${el.avis}" </span> 
+                </li> 
+                </br>
 
-       `
+            `
         )
 
     ).join(' ');
-
+    avisDisplayMessages.sort((c, d) => d.date < c.date);
     let avisDisplayMessagesSplice2 = avisDisplayMessages.splice(0, 2);
     note2.innerHTML = avisDisplayMessagesSplice2.map((el) => (
             // el.avis + el.note
             `
-   <li> ${el.note} <span style="font-size: 25px ;text-align: left ;">⭐</span> </br> 
-   ${el.firstname} : </br> <span style="font-style: normal; font-weight: bold;"> "${el.avis}" </span> </li> </br>
+                <li> 
+                        ${el.note} <span style="font-size: 10px">⭐</span> 
+                            </br> 
+                        <span style="font-style: normal;">${el.firstname} : </span> 
+                            </br>
+                            </br>
+                        <span style= ""> "${el.avis}" </span> 
+                </li> 
+                </br>
 
-   `
+            `
         )
 
     ).join(' ');
