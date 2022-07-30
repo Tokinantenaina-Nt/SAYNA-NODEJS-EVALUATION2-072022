@@ -1,0 +1,85 @@
+<htlm>
+
+    <head>
+
+        <title> D- CLIC </title>
+        <link rel="stylesheet" href="/Pages/style.css">
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="menu">
+                <ul>
+                    <li class="logo"> <img src="/Assets/image/sayna.jpg"> </li>
+                    <li><a href="/index"> Home</a></li>
+                    <li><a href="/backend"> BackEnd</a></li>
+                    <li><a href="/frontend">FrontEnd</a></li>
+                    <li><a href="/marketing">Marketing Digital</a></li>
+                    <li><a href="/uxui">UX/UI</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <!-- <li> <a href = "#" class="signup-btn"> <span> Sign Up </span> </a> </li> -->
+                </ul>
+
+            </div>
+
+            <div class="banner">
+
+                <div class="app-text">
+                    <h1> D-CLIC <br> Venez nous voir </h1>
+                    <p>Prenez contact avec nous. </p>
+                    <div class="play-btn">
+                        <div class="play-btn-inner">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="app-picture-contact">
+                    <img src="/Assets/image/image_contact.jpg">
+
+                </div>
+
+
+                <body>
+                    <h2>Notez la formation</h2>
+
+                    <div>
+                        <!-- <form action="/action_page.php"> -->
+                        <form action="/contact" method="post">
+                            <label for="fname">First Name</label>
+                            <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+                            <label for="lname">Last Name</label>
+                            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+                            <label for="avis">Votre avis</label>
+                            <input type="text" id="avis" name="avis" placeholder="donnez votre avis sur la formation..">
+
+                            <label for="Note">Note</label>
+                            <input type="number" id="Note" name="note" min="1" max="5" placeholder="votre note ..">
+
+                            <label for="formation">Formation</label>
+                            <select id="formation" name="formation">
+                                <option value=""> </option>
+                                <option value="Frontend">Frontend</option>
+                                <option value="Backend">Backend</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="UXUI">UX-UI</option>
+					        </select>
+
+                            <input type="submit" value="Submit" onclick="clicFonction">
+                        </form>
+                    </div>
+
+                </body>
+
+
+
+
+            </div>
+        </div>
+
+    </body>
+
+    </html>
