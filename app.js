@@ -18,8 +18,8 @@ app.use(express.json());
 
 app.get("/api/message/:mdpAdmin/:formation", function(req, res) {
     let mdpAdmin = req.params.mdpAdmin;
-    var formation = req.params.formation;
-    const messageDisplay = message.messages.filter(p => p.formation === formation);
+    var formation = req.params.formation.toLowerCase();
+    const messageDisplay = message.messages.filter(p => p.formation.toLowerCase() === formation);
     if (mdpAdmin === '12345678') {
         res.send(messageDisplay);
 
@@ -41,6 +41,9 @@ app.get("/api/message/:mdpAdmin", function(req, res) {
 })
 app.get('/style.css', function(req, res) {
     res.sendFile(__dirname + `/style.css`)
+})
+app.get('/index.js', function(req, res) {
+    res.sendFile(__dirname + `/index.js`)
 })
 app.get('/Assets/image/:image.jpg', function(req, res) {
     const image = req.params.image

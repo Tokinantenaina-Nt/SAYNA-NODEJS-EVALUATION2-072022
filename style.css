@@ -159,10 +159,18 @@ body {
 
 .flip-box {
     background-color: transparent;
-    width: 300px;
-    height: 200px;
+    width: 380px;
+    height: 260px;
     border: 1px solid #f1f1f1;
     perspective: 1000px;
+}
+
+.flip-box li {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    /* font-size: 12px; */
 }
 
 .flip-box-inner {
@@ -202,4 +210,9 @@ body {
     border-radius: 100%;
     opacity: 100%;
     filter: invert();
+}
+
+#note,
+#note2 {
+    list-style-type: none;
 }
