@@ -12,47 +12,57 @@ const fetchMessage = async(params) => {
     if (params) {
 
     }
-    note_.innerHTML = avisDisplayMessagesSplice.map((el) => (
-            // el.avis + el.note
-            `
-                <li> 
-                        ${el.note} <span style="font-size: 10px ">⭐</span> 
-                            </br> 
-                        <span style="font-style: normal; "> ${el.firstname}  : </span> 
-                            </br>
-                            </br> 
-                        <span style=""> "${el.avis}" </span> 
-                </li> 
-                </br>
+
+
+    function inner() {
+        note_.innerHTML = avisDisplayMessagesSplice.map((el) => (
+            // el.avis + el.note     
 
             `
-        )
+                    <li> 
+                            ${el.note} <span style="font-size: 10px ">⭐</span> 
+                                </br> 
+                            <span style="font-style: normal; "> ${el.firstname}  : </span> 
+                                </br>
+                                <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
+                                </br> 
+                            <span style=""> "${el.avis}" </span> 
+                    </li> 
+                    </br>
 
-    ).join(' ');
+                `
+        )).join(' ');
+    }
+    inner()
+
     avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
     let avisDisplayMessagesSplice2 = avisDisplay.messages.filter((p) => p.formation.toLowerCase() == params).reverse().splice(0, 2);
-    note2_.innerHTML = avisDisplayMessagesSplice2.map((el) => (
-            `
-                <li> 
-                        ${el.note} <span style="font-size: 10px">⭐</span> 
-                            </br> 
-                        <span style="font-style: normal;">${el.firstname} : </span> 
-                            </br>
-                            </br>
-                        <span style= ""> "${el.avis}" </span> 
-                </li>
-                </br>
 
+    function inner2() {
+        note2_.innerHTML = avisDisplayMessagesSplice2.map((el) => (
             `
-        )
+                        <li> 
+                            ${el.note} <span style="font-size: 10px ">⭐</span> 
+                                </br> 
+                            <span style="font-style: normal; "> ${el.firstname}  : </span> 
+                                </br>
+                                <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
+                                </br> 
+                            <span style=""> "${el.avis}" </span> 
+                    </li> 
+                    </br>
 
-    ).join(' ');
+                `
+        )).join(' ');
+    }
+    inner2()
 
     // --------------------   evenemment  --------------------------------
     const lireTous = document.getElementById('lireTous');
-    const flipBoxFront = document.querySelector('.flip-box-inner')
-    const flipBoxLi = document.querySelector('.flip-box')
-        // --------------------- Les fonction qui attendent 3000ms --------------
+    const flipBoxInner = document.querySelector('#flip-box-inner')
+    const flipBoxLi = document.querySelector('#flip-box')
+
+
     setTimeout(() => {
         // ---------------------- scroll auto ---------------
         const li = document.querySelector('.flip-box-front ul').children;
@@ -70,45 +80,46 @@ const fetchMessage = async(params) => {
     }, 3000);
 
     // ------------- onclick ---------------------
-    const allAvis = document.querySelector('#allAvis')
 
     avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
+    const allAvis = document.querySelector('#allAvis_')
+
     let avisDisplayMessagesSplice3 = avisDisplay.messages.filter((p) => p.formation.toLowerCase() == params).reverse()
-    console.log(avisDisplayMessagesSplice3);
     lireTous.addEventListener("click", () => {
-        flipBoxFront.style.width = '200%';
-        flipBoxFront.style.height = '200%';
-        flipBoxLi.classList = ('flip-box-lireTous li')
-        flipBoxLi.style.width = '20em'
-        allAvis.innerHTML = avisDisplayMessagesSplice3.map((el) => (
+        // close.classList.add('opacity1')
+        close.classList.toggle('opacity1')
+        flipBoxLi.classList = ('flip-box-lireTous')
+        note_.innerHTML = avisDisplayMessagesSplice3.map((el) => (
                 `
-                <li> 
-                        ${el.note} <span style="font-size: 10px">⭐</span> 
-                            </br> 
-                        <span style="font-style: normal;">${el.firstname} : </span> 
-                            </br>
-                            </br>
-                        <span style= ""> "${el.avis}" </span> 
-                </li>
-                </br>
+                    <li> 
+                    ${el.note} <span style="font-size: 10px ">⭐</span> 
+                        </br> 
+                    <span style="font-style: normal; "> ${el.firstname}  : </span> 
+                        </br>
+                        <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
+                        </br> 
+                    <span style=""> "${el.avis}" </span> 
+            </li> 
+            </br>
 
             `
             )
 
         ).join(' ');
+
+
     })
 
-
+    const flipBoxFront = document.querySelector('.flip-box-front')
+    flipBoxFront.addEventListener("click", () => {
+        flipBoxInner.style.height = '100%';
+    })
+    const close = document.querySelector('#close')
+    close.addEventListener("click", () => {
+        flipBoxLi.classList = 'flip-box'
+        flipBoxInner.classList = 'flip-box-inner'
+        inner();
+        inner2();
+        close.classList.toggle('opacity1')
+    })
 };
-if (window.location.href == window.location.origin + '/backend') {
-    fetchMessage('backend');
-}
-if (window.location.href == window.location.origin + '/frontend') {
-    fetchMessage('frontend');
-}
-if (window.location.href == window.location.origin + '/marketing') {
-    fetchMessage('marketing');
-}
-if (window.location.href == window.location.origin + '/uxui') {
-    fetchMessage('uxui');
-}

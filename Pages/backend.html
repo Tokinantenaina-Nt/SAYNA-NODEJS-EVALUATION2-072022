@@ -42,32 +42,42 @@
 
                 <body>
 
-                    <div class="flip-box">
-                        <div class="flip-box-inner">
-                            <div class="flip-box-front" id="allAvis">
-                                <h2>Avis des utilisateurs sur le backend</h2>
+                    <div class="flip-box" id="flip-box">
+                        <div class="flip-box-inner" id="flip-box-inner">
+                            <div class="flip-box-front">
+                                <h2 id="avis_">Avis des utilisateurs sur le backend</h2>
                                 <!-- -------insertion avis utilisateur------- 'index.js' -->
                                 </br>
+
                                 <span style="font-style: italic; text-align: left ; ">
-                                " <ul id="note_" class="li">pas d'avis enregistré</ul>
+
+                                    " 
+                                        <ul id="note_" class="li"> chargement des avis ... </ul>
+                                        
+                                        <span id="close" class="opacity0">  
+                                            <span style="background-color: #1E90FF; font-size: large; text-align: left; left: 50%; border-width: 0; border-color: black; border: solid; border-radius: 100%;" > X </span>
+                                <span>close</span>
+                                </span>
                                 </span>
                                 <!-- ---------------------------------------------------- -->
                             </div>
-                            <div class="flip-box-back">
-                                <h2>Suite</h2>
+                            <div class="flip-box-back" id="allAvis_">
+                                <!-- <h2>Suite</h2> -->
+                                <!-- -------------------  Suite ------------------------- -->
                                 </br>
-                                <span style="font-style: italic;  ">
-                                    "
-                                    <ul id="note2_"></ul>
+                                <span style="font-style: italic; ">
+                                    " <ul id="note2_">
+                                </ul>
                                 </span>
                                 </br>
                                 <div style=" font-size: 13px; padding: 5px 0em; border-radius: 10px;
                                 background-color: #1E90FF; margin-bottom: 10px; 
-                                ">
-                                    <span style="text-decoration: none;" id="lireTous">Lire tous ...</span>
+                                "><span style="text-decoration: none;" id="lireTous">
+                                <a href="#avis_" id="ref" style="color: white; text-decoration: none;">
+                                Lire tous ... </a></span>
                                 </div>
-
-                                <a href="/contact#form"><button class="avis-btn">  Donner votre avis</button></a>
+                                <a href="/contact#form"><button class="avis-btn">  Donnez votre avis</button></a>
+                                <!-- --------------------------------------------------- -->
 
                             </div>
                         </div>
@@ -77,8 +87,9 @@
 
             </div>
         </div>
-
+        <!-- ---------- on lit index.js puis backend.js ---- A ne pas renverser --- -->
         <script src="/index.js"></script>
+        <script src="/js/backend.js"></script>
     </body>
 
     </html>

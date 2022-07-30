@@ -43,8 +43,16 @@ app.get('/style.css', function(req, res) {
     res.sendFile(__dirname + `/style.css`)
 })
 app.get('/index.js', function(req, res) {
-    res.sendFile(__dirname + `/index.js`)
+        res.sendFile(__dirname + `/index.js`)
+    })
+    // app.get('/js/backend.js', function(req, res) {
+    //     res.sendFile(__dirname + `/js/backend.js`)
+    // })
+app.get('/js/:page.js', function(req, res) {
+    const page = req.params.page
+    res.sendFile(__dirname + `/js/` + page + `.js`)
 })
+
 app.get('/Assets/image/:image.jpg', function(req, res) {
     const image = req.params.image
     res.sendFile(__dirname + `/Assets/image/` + image + `.jpg`)
@@ -52,33 +60,38 @@ app.get('/Assets/image/:image.jpg', function(req, res) {
 app.get('/', function(req, res) {
     res.sendFile(__dirname + `/`)
 })
+
 app.get('/index', function(req, res) {
     res.sendFile(__dirname + `/index.html`)
 })
-app.get('/backend', function(req, res) {
-    res.sendFile(__dirname + `/pages/backend.html`)
-})
+app.get('/:page', function(req, res) {
+        const page = req.params.page
+        res.sendFile(__dirname + `/pages/` + page + `.html`)
+    })
+    // app.get('/backend', function(req, res) {
+    //     res.sendFile(__dirname + `/pages/backend.html`)
+    // })
 
-app.get('/indexAPI', function(req, res) {
-    res.sendFile(__dirname + `/pages/indexAPI.html`)
-})
+// app.get('/indexAPI', function(req, res) {
+//     res.sendFile(__dirname + `/pages/indexAPI.html`)
+// })
 
-app.get('/contact', function(req, res) {
-    res.sendFile(__dirname + `/pages/contact.html`)
-})
-app.get('/frontend', function(req, res) {
-    res.sendFile(__dirname + `/pages/frontend.html`)
-})
-app.get('/marketing', function(req, res) {
-    res.sendFile(__dirname + `/pages/marketing.html`)
-})
-app.get('/uxui', function(req, res) {
-    res.sendFile(__dirname + `/pages/uxui.html`)
-})
-app.get('/contact', function(req, res) {
-    res.sendFile(__dirname + `/pages/contact.html`)
-})
+// app.get('/contact', function(req, res) {
+//     res.sendFile(__dirname + `/pages/contact.html`)
+// })
+// app.get('/frontend', function(req, res) {
+//     res.sendFile(__dirname + `/pages/frontend.html`)
+// })
+// app.get('/marketing', function(req, res) {
+//     res.sendFile(__dirname + `/pages/marketing.html`)
+// })
+// app.get('/uxui', function(req, res) {
+//     res.sendFile(__dirname + `/pages/uxui.html`)
+// })
 
+app.get('*', function(req, res) {
+    res.sendFile(__dirname + `/`)
+})
 app.post('/contact', function(req, res) {
     let firstname, lastname, avis, note, formation, date;
     let avisData = {}
