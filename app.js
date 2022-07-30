@@ -39,11 +39,18 @@ app.get("/api/message/:mdpAdmin", function(req, res) {
 
     }
 })
+app.get('/style.css', function(req, res) {
+    res.sendFile(__dirname + `/style.css`)
+})
+app.get('/Assets/image/:image.jpg', function(req, res) {
+    const image = req.params.image
+    res.sendFile(__dirname + `/Assets/image/` + image + `.jpg`)
+})
 app.get('/', function(req, res) {
     res.sendFile(__dirname + `/`)
 })
 app.get('/index', function(req, res) {
-    res.sendFile(__dirname + `/pages/index.html`)
+    res.sendFile(__dirname + `/index.html`)
 })
 app.get('/backend', function(req, res) {
     res.sendFile(__dirname + `/pages/backend.html`)

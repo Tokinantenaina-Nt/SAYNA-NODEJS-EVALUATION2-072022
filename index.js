@@ -7,3 +7,6 @@ var avisBackendDisplay4 = document.querySelector("h4");
 // console.log(avisBackend);
 
 avisBackendDisplay4.innerText = "avis avis avis avis avis"
+const fetchMessage = async() => {
+
+}

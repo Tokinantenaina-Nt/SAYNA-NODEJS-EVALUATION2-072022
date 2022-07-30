@@ -3,7 +3,7 @@
     <head>
 
         <title> D- CLIC </title>
-        <link rel="stylesheet" href="/Pages/style.css">
+        <link rel="stylesheet" href="/style.css">
     </head>
 
     <body>
@@ -54,20 +54,20 @@
                         <input type="text" id="lname" name="lastname" placeholder="Your last name..">
 
                         <label for="avis">Votre avis</label> </br>
-                        <textarea name="avis" id="avis" cols="100%" rows="10" placeholder="donnez votre avis sur la formation.."></textarea>
-                        <!-- <input type="text" id="avis" name="avis" placeholder="donnez votre avis sur la formation.."> -->
+                        <!-- <textarea name="avis" id="avis" cols="100%" rows="10" placeholder="donnez votre avis sur la formation.."></textarea> -->
+                        <input type="text" id="avis" name="avis" placeholder="donnez votre avis sur la formation..">
                         </br>
                         <label for="Note">Note</label>
                         <input type="number" id="Note" name="note" min="1" max="5" placeholder="votre note ..">
 
                         <label for="formation">Formation</label>
                         <select id="formation" name="formation">
-                                <option value=""> </option>
-                                <option value="Frontend">Frontend</option>
-                                <option value="Backend">Backend</option>
-                                <option value="Marketing">Marketing</option>
-                                <option value="UXUI">UX-UI</option>
-					        </select>
+                            <option value=""> </option>
+                            <option value="Frontend">Frontend</option>
+                            <option value="Backend">Backend</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="UXUI">UX-UI</option>
+                        </select>
 
                         <input type="submit" value="Submit" onclick="clicFonction">
                         </form>
