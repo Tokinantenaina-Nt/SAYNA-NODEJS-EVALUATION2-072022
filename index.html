@@ -43,7 +43,7 @@
 
                     <div class="flip-box" id="flip-box">
                         <div class="flip-box-inner" id="flip-box-inner">
-                            <div class="flip-box-front">
+                            <div class="flip-box-front" id="avis_">
                                 <h2>Les meilleures notes des formations</h2>
                                 <!-- -------insertion avis utilisateur------- 'index.js' -->
                                 </br>
@@ -71,7 +71,7 @@
                                 </br>
                                 <div style=" font-size: 13px; padding: 5px 0em; border-radius: 10px;
                             background-color: #1E90FF; margin-bottom: 10px; 
-                            "><span style="text-decoration: none;" id="lireTous">
+                            "><span style="text-decoration: none;" id="lireTousIndexPage">
                             <a href="#avis_" id="ref" style="color: white; text-decoration: none;">
                             Lire tous ... </a></span>
                                 </div>
@@ -86,6 +86,12 @@
             </div>
         </div>
         <script src="index.js"></script>
+        <script>
+            fetchMessage('backend');
+            fetchMessage('frontend');
+            fetchMessage('marketing');
+            fetchMessage('uxui');
+        </script>
     </body>
 
     </html>
