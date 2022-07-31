@@ -1,5 +1,7 @@
 let note_ = document.getElementById('note_');
 let note2_ = document.getElementById('note2_');
+const lireTous = document.getElementById('lireTous');
+
 
 
 let avisDisplay = [];
@@ -58,7 +60,6 @@ const fetchMessage = async(params) => {
     inner2()
 
     // --------------------   evenemment  --------------------------------
-    const lireTous = document.getElementById('lireTous');
     const flipBoxInner = document.querySelector('#flip-box-inner')
     const flipBoxLi = document.querySelector('#flip-box')
 
@@ -78,6 +79,8 @@ const fetchMessage = async(params) => {
     }, 3000);
 
     // ------------- onclick ---------------------
+    const close = document.querySelector('#close')
+
 
     avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
 
@@ -90,7 +93,7 @@ const fetchMessage = async(params) => {
     if (lireTous && lireTousIndexPage == null) {
 
         lireTous.addEventListener("click", () => {
-            console.log('here backend !!!!!!!!!!');
+
             close.classList.toggle('opacity1')
             flipBoxLi.classList = ('flip-box-lireTous')
             note_.innerHTML = avisDisplayMessagesSplice3.map((el) => (
@@ -115,12 +118,11 @@ const fetchMessage = async(params) => {
 
     // TRI4 : ---------------- HomePage ---------
     if (lireTousIndexPage && lireTous == null) {
-        console.log('here homepage!!!!!!!!!!');
 
         avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
 
         let avisDisplayMessagesHome = avisDisplay.messages.filter((p) => p.note > 3.5).reverse().splice(0, 2);
-        console.log(avisDisplayMessagesHome);
+
 
         note_.innerHTML = avisDisplayMessagesHome.map((el) => (
                 `
@@ -157,8 +159,8 @@ const fetchMessage = async(params) => {
         )).join(' ');
         avisDisplayMessagesHome = avisDisplay.messages.filter((p) => p.note > 3.5).reverse()
         lireTousIndexPage.addEventListener("click", () => {
-            console.log('here!!!!!!!!!!!!!!!!!!!');
-            close.classList.toggle('opacity1')
+
+            close.classList.add('opacity1')
             flipBoxLi.classList = ('flip-box-lireTous')
             note_.innerHTML = avisDisplayMessagesHome.map((el) => (
                     `
@@ -184,12 +186,63 @@ const fetchMessage = async(params) => {
     flipBoxFront.addEventListener("click", () => {
         flipBoxInner.style.height = '100%';
     })
-    const close = document.querySelector('#close')
     close.addEventListener("click", () => {
+        close.classList.toggle('opacity1')
         flipBoxLi.classList = 'flip-box'
         flipBoxInner.classList = 'flip-box-inner'
         inner();
         inner2();
-        close.classList.toggle('opacity1')
     })
+
 };
+// ------------------- Verification de saisie page formulaire ---------------------
+const form = document.querySelector('#form')
+if (form && lireTous == null) {
+
+    const fname = document.querySelector('#fname')
+    const avis = document.querySelector('#avis')
+    const note = document.querySelector('#note')
+    const formation = document.querySelector('#formation')
+    const submit = document.querySelector('#submit')
+
+    console.log('s', submit);
+    console.log('fname is', fname);
+    console.log('form is', form);
+    let fnameInput, avisInput, noteInput, formationInput, messageDeConfirmation;
+    fnameInput = fname.value;
+    avisInput = avis.value;
+    noteInput = note.value;
+    formationInput = formation.value;
+
+    function conf() {
+        return confirm("ok or not?");
+    };
+    let errorChamp = true;
+    console.log(fnameInput);
+
+
+    form.addEventListener("submit", (e) => {
+        if (errorChamp === true) {
+            e.preventDefault();
+        }
+    })
+    submit.addEventListener("click", () => {
+        fnameInput = fname.value;
+        avisInput = avis.value;
+        noteInput = note.value;
+        formationInput = formation.value;
+        if (fnameInput == '' || avisInput == '' || noteInput == '' || formationInput == '') {
+            console.log('null!!');
+            messageDeConfirmation = ' Attention !!! * des champs obligatoire ne sont pas remplis '
+            alert(messageDeConfirmation)
+            console.log('error', errorChamp);
+
+        } else {
+            messageDeConfirmation = 'Votre commentaires est pris. Merci pour votre intéré!'
+            alert(messageDeConfirmation)
+            errorChamp = false;
+        }
+        console.log(fnameInput);
+    })
+
+}
