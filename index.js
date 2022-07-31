@@ -1,20 +1,13 @@
 let note_ = document.getElementById('note_');
 let note2_ = document.getElementById('note2_');
-// const note_frontend = document.getElementById('note2_frontend');
-// const note2_frontend = document.getElementById('note2_frontend');
-// const note_marketing = document.getElementById('note2_marketing');
-// const note2_marketing = document.getElementById('note2_marketing');
-// const note_uxui = document.getElementById('note2_uxui');
-// const note2_uxui = document.getElementById('note2_uxui');
-
-// var dir = loc.substring(0, loc.lastIndexOf('/'));
 
 
 let avisDisplay = [];
 const fetchMessage = async(params) => {
     avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
     let avisDisplayMessages = avisDisplay.messages
-    avisDisplayMessages = avisDisplayMessages.filter((p) => p.formation.toLowerCase() == params).sort((a, b) => b.note - a.note).sort((c, d) => d.date < c.date);
+        // --------------- les avis sont tries par ordre de : belle note (en face), puis les commentaires récents(en arriere) 
+    avisDisplayMessages = avisDisplayMessages.filter((p) => p.formation.toLowerCase() == params).sort((a, b) => a.note - b.note).reverse();
     let avisDisplayMessagesSplice = avisDisplayMessages.splice(0, 2);
     if (params) {
 
@@ -36,8 +29,8 @@ const fetchMessage = async(params) => {
         )
 
     ).join(' ');
-    avisDisplayMessages.sort((c, d) => d.date < c.date);
-    let avisDisplayMessagesSplice2 = avisDisplayMessages.splice(0, 2);
+    avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
+    let avisDisplayMessagesSplice2 = avisDisplay.messages.filter((p) => p.formation.toLowerCase() == params).reverse().splice(0, 2);
     note2_.innerHTML = avisDisplayMessagesSplice2.map((el) => (
             `
                 <li> 
@@ -47,32 +40,75 @@ const fetchMessage = async(params) => {
                             </br>
                             </br>
                         <span style= ""> "${el.avis}" </span> 
-                </li> 
+                </li>
                 </br>
 
             `
         )
 
     ).join(' ');
+
+    // --------------------   evenemment  --------------------------------
+    const lireTous = document.getElementById('lireTous');
+    const flipBoxFront = document.querySelector('.flip-box-inner')
+    const flipBoxLi = document.querySelector('.flip-box')
+        // --------------------- Les fonction qui attendent 3000ms --------------
+    setTimeout(() => {
+        // ---------------------- scroll auto ---------------
+        const li = document.querySelector('.flip-box-front ul').children;
+        for (let i = 0; i < li.length; i++) {
+            const el = li[i];
+
+            setInterval(function() {
+                el.scrollBy(0, 1);
+
+            }, 100);
+        }
+
+
+
+    }, 3000);
+
+    // ------------- onclick ---------------------
+    const allAvis = document.querySelector('#allAvis')
+
+    avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
+    let avisDisplayMessagesSplice3 = avisDisplay.messages.filter((p) => p.formation.toLowerCase() == params).reverse()
+    console.log(avisDisplayMessagesSplice3);
+    lireTous.addEventListener("click", () => {
+        flipBoxFront.style.width = '200%';
+        flipBoxFront.style.height = '200%';
+        flipBoxLi.classList = ('flip-box-lireTous li')
+        flipBoxLi.style.width = '20em'
+        allAvis.innerHTML = avisDisplayMessagesSplice3.map((el) => (
+                `
+                <li> 
+                        ${el.note} <span style="font-size: 10px">⭐</span> 
+                            </br> 
+                        <span style="font-style: normal;">${el.firstname} : </span> 
+                            </br>
+                            </br>
+                        <span style= ""> "${el.avis}" </span> 
+                </li>
+                </br>
+
+            `
+            )
+
+        ).join(' ');
+    })
+
+
 };
-
-
 if (window.location.href == window.location.origin + '/backend') {
     fetchMessage('backend');
-    console.log(window.location.href);
-
 }
 if (window.location.href == window.location.origin + '/frontend') {
     fetchMessage('frontend');
-    console.log(window.location.href);
-
 }
 if (window.location.href == window.location.origin + '/marketing') {
     fetchMessage('marketing');
-    console.log(window.location.href);
 }
 if (window.location.href == window.location.origin + '/uxui') {
     fetchMessage('uxui');
-    console.log(window.location.href);
-
 }

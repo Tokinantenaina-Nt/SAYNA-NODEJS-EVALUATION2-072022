@@ -44,13 +44,12 @@
 
                     <div class="flip-box">
                         <div class="flip-box-inner">
-                            <div class="flip-box-front">
+                            <div class="flip-box-front" id="allAvis">
                                 <h2>Avis des utilisateurs sur le backend</h2>
                                 <!-- -------insertion avis utilisateur------- 'index.js' -->
                                 </br>
-                                <span style="font-style: italic; text-align: left ;  ">
-                                "
-                                <ul id="note_">pas d'avis enregistré</ul> 
+                                <span style="font-style: italic; text-align: left ; ">
+                                " <ul id="note_" class="li">pas d'avis enregistré</ul>
                                 </span>
                                 <!-- ---------------------------------------------------- -->
                             </div>
@@ -62,7 +61,13 @@
                                     <ul id="note2_"></ul>
                                 </span>
                                 </br>
-                                <button class="avis-btn"> Tous les avis</button>
+                                <div style=" font-size: 13px; padding: 5px 0em; border-radius: 10px;
+                                background-color: #1E90FF; margin-bottom: 10px; 
+                                ">
+                                    <span style="text-decoration: none;" id="lireTous">Lire tous ...</span>
+                                </div>
+
+                                <a href="/contact#form"><button class="avis-btn">  Donner votre avis</button></a>
 
                             </div>
                         </div>

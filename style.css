@@ -175,9 +175,52 @@ body {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;
-    overflow: hidden;
+    overflow: auto;
     /* font-size: 12px; */
 }
+
+li::-webkit-scrollbar {
+    width: 2px;
+}
+
+body::-webkit-scrollbar-track {
+    background: orange;
+}
+
+li::-webkit-scrollbar-thumb {
+    background-color: #1E90FF;
+    border-radius: 20px;
+    border: 0px solid rgb(0, 0, 0);
+    width: 0px;
+    height: 0px;
+}
+
+
+/* ------------------ */
+
+.flip-box li {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: auto;
+    /* font-size: 12px; */
+}
+
+.flip-box-lireTous li {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    /* -webkit-line-clamp: 10; */
+    /* overflow: visible; */
+    /* font-size: 12px; */
+}
+
+.width200 {
+    width: 200% !important;
+    /* transform: rotateY(0deg); */
+}
+
+
+/* ------------------- */
 
 .flip-box-inner {
     position: relative;
