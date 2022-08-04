@@ -1,1 +1,1 @@
-fetchMessage('marketing');
+fetchMessage('marketing')

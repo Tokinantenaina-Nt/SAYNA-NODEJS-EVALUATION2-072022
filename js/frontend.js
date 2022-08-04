@@ -1,1 +1,1 @@
-fetchMessage('frontend');
+fetchMessage('frontend')
