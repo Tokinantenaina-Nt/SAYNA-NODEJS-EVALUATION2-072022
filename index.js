@@ -2,66 +2,61 @@ let note_ = document.getElementById('note_');
 let note2_ = document.getElementById('note2_');
 const lireTous = document.getElementById('lireTous');
 
+// ----------- affichage des avis par formation
 
+let avisDisplay
 
-let avisDisplay = [];
-const fetchMessage = async(params) => {
-    avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
-    let avisDisplayMessages = avisDisplay.messages
-        // les avis sont tries par ordre de : belle note (en face), puis les commentaires récents(en arriere) 
-        // ---------------TRI1: 
-    avisDisplayMessages = avisDisplayMessages.filter((p) => p.formation.toLowerCase() == params).sort((a, b) => a.note - b.note).reverse();
-    let avisDisplayMessagesSplice = avisDisplayMessages.splice(0, 2);
-
+const fetchMessage = async(par) => {
+    avisDisplay = await fetch(`/api/message/12345678/formation=${par}/orderbynote`).then((res) => res.json());
+    // les avis sont tries par ordre de : belle note (en face), puis les commentaires récents(en arriere) 
+    // ---------------TRI1: 
     // ------------------- inner html ---------------
     // front messages -----
+
     function inner() {
-        note_.innerHTML = avisDisplayMessagesSplice.map((el) => (
-            // el.avis + el.note     
+        avisDisplay.splice(2)
+        note_.innerHTML = avisDisplay.map((el) => (
+            `    <li> ${el.note}
+            <span style="font-size: 10px "> ⭐
+                    </span>
+            </br>
+            <span style="font-style: normal; "> ${el.firstName} :</span>
+            </br>
+            <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.datePost)}</span>
+            </br>
+            <span>"${el.avis}"</span>
+        </li>
+        </br>`
 
-            `
-                    <li> 
-                            ${el.note} <span style="font-size: 10px ">⭐</span> 
-                                </br> 
-                            <span style="font-style: normal; "> ${el.firstname}  : </span> 
-                                </br>
-                                <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
-                                </br> 
-                            <span style=""> "${el.avis}" </span> 
-                    </li> 
-                    </br>
-
-                `
         )).join(' ');
     }
     inner()
-        // back messages -------------
-        // TRI2 : ---------
-    avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
-    let avisDisplayMessagesSplice2 = avisDisplay.messages.filter((p) => p.formation.toLowerCase() == params).reverse().splice(0, 2);
+
+    // back messages -------------
+    // TRI2 : ---------
+    avisDisplay = await fetch(`/api/message/12345678/formation=${par}/orderbyid`).then((res) => res.json());
 
     function inner2() {
-        note2_.innerHTML = avisDisplayMessagesSplice2.map((el) => (
-            `
-                        <li> 
-                            ${el.note} <span style="font-size: 10px ">⭐</span> 
-                                </br> 
-                            <span style="font-style: normal; "> ${el.firstname}  : </span> 
-                                </br>
-                                <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
-                                </br> 
-                            <span style=""> "${el.avis}" </span> 
-                    </li> 
+        avisDisplay.splice(2)
+        note2_.innerHTML = avisDisplay.map((el) => (
+            ` 
+                <li> ${el.note}
+                    <span style="font-size: 10px "> ⭐</span>
                     </br>
-
-                `
+                    <span style="font-style: normal; "> ${el.firstName} :</span>
+                    </br>
+                    <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.datePost)}</span>
+                    </br>
+                    <span>"${el.avis}"</span>
+                </li>
+                </br>
+            `
         )).join(' ');
     }
     inner2()
-
-    // --------------------   evenemment  --------------------------------
+        // --------------------   evenemment  --------------------------------
     const flipBoxInner = document.querySelector('#flip-box-inner')
-    const flipBoxLi = document.querySelector('#flip-box')
+    const flipBox = document.querySelector('#flip-box')
 
 
     setTimeout(() => {
@@ -82,34 +77,34 @@ const fetchMessage = async(params) => {
     const close = document.querySelector('#close')
 
 
-    avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
+    avisDisplay = await fetch(`/api/message/12345678/formation=${par}/orderbyid`).then((res) => res.json());
 
 
     // innerHTML all messages ------------- 
     // TRI3 : -------------
-    let avisDisplayMessagesSplice3 = avisDisplay.messages.filter((p) => p.formation.toLowerCase() == params).reverse()
+
     const lireTousIndexPage = document.querySelector('#lireTousIndexPage');
+    let avisDisplayAll = avisDisplay
 
     if (lireTous && lireTousIndexPage == null) {
 
         lireTous.addEventListener("click", () => {
 
             close.classList.toggle('opacity1')
-            flipBoxLi.classList = ('flip-box-lireTous')
-            note_.innerHTML = avisDisplayMessagesSplice3.map((el) => (
+            flipBox.classList = ('flip-box-lireTous')
+            note_.innerHTML = avisDisplayAll.map((el) => (
                     `
-                    <li> 
-                    ${el.note} <span style="font-size: 10px ">⭐</span> 
-                        </br> 
-                    <span style="font-style: normal; "> ${el.firstname}  : </span> 
+                    <li> ${el.note}
+                        <span style="font-size: 10px "> ⭐</span>
                         </br>
-                        <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
-                        </br> 
-                    <span style=""> "${el.avis}" </span> 
-            </li> 
-            </br>
-
-            `
+                        <span style="font-style: normal; "> ${el.firstName} :</span>
+                        </br>
+                        <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.datePost)}</span>
+                        </br>
+                        <span>"${el.avis}"</span>
+                    </li>
+                    </br>
+                `
                 )
 
             ).join(' ');
@@ -118,64 +113,63 @@ const fetchMessage = async(params) => {
 
     // TRI4 : ---------------- HomePage ---------
     if (lireTousIndexPage && lireTous == null) {
-
-        avisDisplay = await fetch("http://localhost:3000/api/message/12345678").then((res) => res.json());
-
-        let avisDisplayMessagesHome = avisDisplay.messages.filter((p) => p.note > 3.5).reverse().splice(0, 2);
-
-
-        note_.innerHTML = avisDisplayMessagesHome.map((el) => (
+        // ------------ le meilleur avis de note superieur à 3.5
+        // fetch(`/api/message/allFormation/:authAdmin/bynote&notesup/:note`)
+        avisDisplayHomePage = await fetch(`/api/message/${par}/12345678/bynote&notesup/3.5`).then((res) => res.json());
+        avisDisplayHomePage = avisDisplayHomePage.splice(0, 2);
+        note_.innerHTML = avisDisplayHomePage.map((el) => (
                 `
-                <li> 
-                ${el.note} <span style="font-size: 10px ">⭐</span> 
-                    </br> 
-                <span style="font-style: normal; "> ${el.firstname}  : </span> 
+                <li> ${el.note}
+                    <span style="font-size: 10px "> ⭐</span>
                     </br>
-                    <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
-                    </br> 
-                <span style=""> "${el.avis}" </span> 
-                </li> 
-                </br>
+                    <span style="font-style: normal; "> ${el.firstName} :</span>
+                    </br>
+                    <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.datePost)}</span>
+                    </br>
+                    <span>"${el.avis}"</span>
+                </li>
+                    </br>
 
-            `
+                `
             )
 
         ).join(' ');
-        avisDisplayMessagesHome = avisDisplay.messages.filter((p) => p.note > 3.5).reverse().splice(2, 2);
-        note2_.innerHTML = avisDisplayMessagesHome.map((el) => (
-            `
-                    <li> 
-                        ${el.note} <span style="font-size: 10px ">⭐</span> 
-                            </br> 
-                        <span style="font-style: normal; "> ${el.firstname}  : </span> 
-                            </br>
-                            <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
-                            </br> 
-                        <span style=""> "${el.avis}" </span> 
-                </li> 
+        // --- order by date
+        avisDisplayHomePage = await fetch(`/api/message/${par}/12345678/bynote&notesup/3.5`).then((res) => res.json());
+        avisDisplayHomePage = avisDisplayHomePage.splice(2, 2)
+        note2_.innerHTML = avisDisplayHomePage.map((el) => (
+            ` 
+            <li> ${el.note}
+                <span style="font-size: 10px "> ⭐</span>
                 </br>
+                <span style="font-style: normal; "> ${el.firstName} :</span>
+                </br>
+                <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.datePost)}</span>
+                </br>
+                <span>"${el.avis}"</span>
+            </li>
+            </br>
 
-            `
+                `
         )).join(' ');
-        avisDisplayMessagesHome = avisDisplay.messages.filter((p) => p.note > 3.5).reverse()
+
+        avisDisplayHomePage = await fetch(`/api/message/${par}/12345678/bynote&notesup/3.5`).then((res) => res.json());
         lireTousIndexPage.addEventListener("click", () => {
-
             close.classList.add('opacity1')
-            flipBoxLi.classList = ('flip-box-lireTous')
-            note_.innerHTML = avisDisplayMessagesHome.map((el) => (
-                    `
-                <li> 
-                ${el.note} <span style="font-size: 10px ">⭐</span> 
-                    </br> 
-                <span style="font-style: normal; "> ${el.firstname}  : </span> 
+            flipBox.classList = ('flip-box-lireTous')
+            note_.innerHTML = avisDisplayHomePage.map((el) => (
+                    ` 
+                    <li> ${el.note}
+                        <span style="font-size: 10px "> ⭐</span>
+                        </br>
+                        <span style="font-style: normal; "> ${el.firstName} :</span>
+                        </br>
+                        <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.datePost)}</span>
+                        </br>
+                        <span>"${el.avis}"</span>
+                    </li>
                     </br>
-                    <span style="opacity : 50% ; font-size : 11px ; padding: 10px 0; "> ${JSON.stringify(el.date).substring(1, 26)} </span>
-                    </br> 
-                <span style=""> "${el.avis}" </span> 
-        </li> 
-        </br>
-
-        `
+                `
                 )
 
             ).join(' ');
@@ -188,13 +182,16 @@ const fetchMessage = async(params) => {
     })
     close.addEventListener("click", () => {
         close.classList.toggle('opacity1')
-        flipBoxLi.classList = 'flip-box'
+        flipBox.classList = 'flip-box'
         flipBoxInner.classList = 'flip-box-inner'
         inner();
         inner2();
-    })
+        if (lireTousIndexPage && lireTous == null) { fetchMessage('allFormation') }
 
+    })
 };
+
+
 // ------------------- Verification de saisie page formulaire ---------------------
 const form = document.querySelector('#form')
 if (form && lireTous == null) {
@@ -205,9 +202,6 @@ if (form && lireTous == null) {
     const formation = document.querySelector('#formation')
     const submit = document.querySelector('#submit')
 
-    console.log('s', submit);
-    console.log('fname is', fname);
-    console.log('form is', form);
     let fnameInput, avisInput, noteInput, formationInput, messageDeConfirmation;
     fnameInput = fname.value;
     avisInput = avis.value;
@@ -218,7 +212,6 @@ if (form && lireTous == null) {
         return confirm("ok or not?");
     };
     let errorChamp = true;
-    console.log(fnameInput);
 
 
     form.addEventListener("submit", (e) => {
@@ -232,17 +225,17 @@ if (form && lireTous == null) {
         noteInput = note.value;
         formationInput = formation.value;
         if (fnameInput == '' || avisInput == '' || noteInput == '' || formationInput == '') {
-            console.log('null!!');
+
             messageDeConfirmation = ' Attention !!! * des champs obligatoire ne sont pas remplis '
             alert(messageDeConfirmation)
-            console.log('error', errorChamp);
+
 
         } else {
             messageDeConfirmation = 'Votre commentaires est pris. Merci pour votre intéré!'
             alert(messageDeConfirmation)
             errorChamp = false;
         }
-        console.log(fnameInput);
+
     })
 
 }
